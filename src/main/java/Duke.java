@@ -25,13 +25,11 @@ public class Duke {
             if (line.equals("list")) {
                 //printList
                 list.printList();
-            }
-            else if (line.contains("done")) {
+            } else if (line.contains("done")) {
                 //markTaskAsDone
                 int index = Integer.parseInt(line.substring(line.indexOf(' ') + 1));
                 list.markAsDone(index - 1);
-            }
-            else {
+            } else {
                 //addToList
                 list.addToList(line);
             }

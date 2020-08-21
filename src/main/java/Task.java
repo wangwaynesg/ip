@@ -1,3 +1,10 @@
+/**
+ * Task is class for instantiating objects tasks
+ * Tasks are used in TaskList
+ *
+ * @wangwaynesg (Wang Wayne)
+ */
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -8,7 +15,7 @@ public class Task {
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public String getStatusIcon() {
@@ -16,6 +23,6 @@ public class Task {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 }
