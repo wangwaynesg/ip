@@ -14,7 +14,7 @@ public class Duke {
         printHorizontalLine();
 
         // Initialize new instance of a ToDoList object
-        ToDoList list = new ToDoList();
+        TaskList list = new TaskList();
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -25,6 +25,11 @@ public class Duke {
             if (line.equals("list")) {
                 //printList
                 list.printList();
+            }
+            else if (line.contains("done")) {
+                //markTaskAsDone
+                int index = Integer.parseInt(line.substring(line.indexOf(' ') + 1));
+                list.markAsDone(index - 1);
             }
             else {
                 //addToList
