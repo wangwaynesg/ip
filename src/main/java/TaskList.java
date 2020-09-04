@@ -12,9 +12,12 @@ public class TaskList {
         list = new Task[100];
     }
 
-    public void addToList(String description) {
-        list[TaskList.listLength++] = new Task(description);
-        System.out.println("added: " + description);
+    public void addToList(Task task) {
+        list[TaskList.listLength++] = task;
+        // System.out.println("added: " + task.getDescription());
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + this.listLength + " tasks in the list.");
     }
 
     public void printList() {
@@ -24,7 +27,7 @@ public class TaskList {
             int counter = 1;
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < TaskList.listLength ; i++) {
-                System.out.println(counter++ + "." + list[i].getStatusIcon() + " " + list[i].getDescription());
+                System.out.println(counter++ + "." + list[i].toString());
             }
         }
     }
