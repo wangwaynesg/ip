@@ -1,3 +1,9 @@
+/**
+ * Individual Project Main class
+ *
+ * @wangwaynesg (Wang Wayne)
+ */
+
 import java.util.Scanner;
 
 public class Duke {
@@ -9,8 +15,20 @@ public class Duke {
     public static final String COMMAND_DONE = "done";
 
     public static void printHorizontalLine() {
-        String horizontalLine = "____________________________________________________________";
-        System.out.println(horizontalLine);
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void printGreetingMessage() {
+        printHorizontalLine();
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
+        printHorizontalLine();
+    }
+
+    public static void printExitMessage() {
+        printHorizontalLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        printHorizontalLine();
     }
 
     public static String getCommand(String line) {
@@ -20,7 +38,7 @@ public class Duke {
     public static String getTaskDescription(String command, String line) {
         switch (command) {
         case COMMAND_TODO:
-            return line.substring(line.indexOf(' '));
+            return line.substring(line.indexOf(' ') + 1);
         case COMMAND_DEADLINE:
         case COMMAND_EVENT:
             return line.substring(line.indexOf(' ') + 1, line.indexOf('/') - 1);
@@ -40,11 +58,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        // Greeting Message
-        printHorizontalLine();
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        printHorizontalLine();
+        printGreetingMessage();
 
         // Initialize new instance of a ToDoList object
         TaskList list = new TaskList();
@@ -63,27 +77,31 @@ public class Duke {
         taskDescription = getTaskDescription(command, line);
         taskDate = getTaskDate(command, line);
 
-
         while (!command.equals(COMMAND_BYE)) {
             printHorizontalLine();
-            if (command.equals(COMMAND_LIST)) {
+            switch (command) {
+            case COMMAND_LIST:
                 list.printList();
-            } else if (command.equals(COMMAND_DONE)) {
+                break;
+            case COMMAND_DONE:
                 String index = line.split(" ")[1];
                 list.markAsDone(Integer.parseInt(index) - 1);
-            } else {
-                if (command.equals(COMMAND_TODO)) {
-                    // add ToDo
-                    list.addToList(new ToDo(line.substring(line.indexOf(' ') + 1)));
-                } else if (command.equals(COMMAND_DEADLINE)) {
-                    // add Deadline
-                    list.addToList(new Deadline(taskDescription, taskDate));
-                } else if (command.equals(COMMAND_EVENT)) {
-                    // add event
-                    list.addToList(new Event(taskDescription, taskDate));
-                }
+                break;
+            case COMMAND_TODO:
+                list.addToList(new ToDo(line.substring(line.indexOf(' ') + 1)));
+                break;
+            case COMMAND_DEADLINE:
+                list.addToList(new Deadline(taskDescription, taskDate));
+                break;
+            case COMMAND_EVENT:
+                list.addToList(new Event(taskDescription, taskDate));
+                break;
+            default:
+                break;
             }
+
             printHorizontalLine();
+
             // Read next line
             line = in.nextLine();
             command = getCommand(line);
@@ -92,8 +110,6 @@ public class Duke {
         }
 
         // Exit Message
-        printHorizontalLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printHorizontalLine();
+        printExitMessage();
     }
 }
