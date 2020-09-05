@@ -1,9 +1,4 @@
-/**
- * Event is a subclass of Task
- * Events are tasks that start at a specific time and ends at a specific time
- *
- * @wangwaynesg (Wang Wayne)
- */
+package duke.task;
 
 public class Event extends Task {
     protected String at;

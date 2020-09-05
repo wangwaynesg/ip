@@ -1,11 +1,7 @@
-/**
- * TaskList is class for instantiating objects which are lists of up to 100 tasks
- *
- * @wangwaynesg (Wang Wayne)
- */
+package duke.task;
 
 public class TaskList {
-    private Task[] list;
+    private final Task[] list;
     private static int listLength = 0;
 
     public TaskList() {
@@ -14,10 +10,10 @@ public class TaskList {
 
     public void addToList(Task task) {
         list[TaskList.listLength++] = task;
-        // System.out.println("added: " + task.getDescription());
-        System.out.println("Got it. I've added this task:");
+        // System.out.println("added: " + duke.task.getDescription());
+        System.out.println("Got it. I've added this duke.task:");
         System.out.println(task.toString());
-        System.out.println("Now you have " + this.listLength + " tasks in the list.");
+        System.out.println("Now you have " + listLength + " tasks in the list.");
     }
 
     public void printList() {
@@ -31,12 +27,13 @@ public class TaskList {
             }
         }
     }
+
     public int getListLength() {
-        return TaskList.listLength;
+        return listLength;
     }
 
     public void markAsDone(int index) {
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Nice! I've marked this duke.task as done:");
         list[index].markAsDone();
         System.out.println(list[index].getStatusIcon() + " " + list[index].getDescription());
     }
