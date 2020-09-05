@@ -35,25 +35,47 @@ public class Duke {
         return line.split(" ")[0];
     }
 
-    public static String getTaskDescription(String command, String line) {
+    public static String getTaskDescription(String command, String line) throws DukeException {
+        if (line.split(command).length < 2 || line.split(command)[1] == " ") {
+            throw new DukeException("☹ OOPS!!! Missing task description!");
+        } else {
+            switch (command) {
+            case COMMAND_TODO:
+                return line.substring(line.indexOf(' ') + 1);
+            case COMMAND_DEADLINE:
+            case COMMAND_EVENT:
+                if (!line.contains("/by ") && command.equals(COMMAND_DEADLINE)) {
+                    throw new DukeException("☹ OOPS!!! Missing or incorrect /by statement");
+                }
+                if (!line.contains("/at ") && command.equals(COMMAND_EVENT)) {
+                    throw new DukeException("☹ OOPS!!! Missing or incorrect /at statement");
+                }
+                return line.substring(line.indexOf(' ') + 1, line.indexOf('/') - 1);
+            default:
+                return null;
+            }
+        }
+    }
+
+    public static String getTaskDate(String command, String line) throws DukeException {
         switch (command) {
-        case COMMAND_TODO:
-            return line.substring(line.indexOf(' ') + 1);
         case COMMAND_DEADLINE:
+            return line.split("/by ")[1];
         case COMMAND_EVENT:
-            return line.substring(line.indexOf(' ') + 1, line.indexOf('/') - 1);
+            return line.split("/at ")[1];
         default:
             return null;
         }
     }
 
-    public static String getTaskDate(String command, String line) {
-        switch (command) {
-        case COMMAND_DEADLINE:
-        case COMMAND_EVENT:
-            return line.substring(line.indexOf("/") + 4);
-        default:
-            return null;
+    public static int getDoneIndex(String command, String line) throws DukeException {
+        if (line.split(command).length < 2 || line.split(command)[1] == " ") {
+            throw new DukeException("☹ OOPS!!! Missing index of task!");
+        }
+        try {
+            return Integer.parseInt(line.split(" ")[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("☹ OOPS!!! No integer index detected!");
         }
     }
 
@@ -63,10 +85,8 @@ public class Duke {
         // Initialize new instance of a ToDoList object
         TaskList list = new TaskList();
 
-        String line = null;
-        String command = null;
-        String taskDescription = null;
-        String taskDate = null;
+        String line;
+        String command;
 
         // Initialize Scanner and read in user input
         Scanner in = new Scanner(System.in);
@@ -74,30 +94,31 @@ public class Duke {
 
         // Get command, taskDescription and taskDate
         command = getCommand(line);
-        taskDescription = getTaskDescription(command, line);
-        taskDate = getTaskDate(command, line);
 
         while (!command.equals(COMMAND_BYE)) {
             printHorizontalLine();
-            switch (command) {
-            case COMMAND_LIST:
-                list.printList();
-                break;
-            case COMMAND_DONE:
-                String index = line.split(" ")[1];
-                list.markAsDone(Integer.parseInt(index) - 1);
-                break;
-            case COMMAND_TODO:
-                list.addToList(new ToDo(line.substring(line.indexOf(' ') + 1)));
-                break;
-            case COMMAND_DEADLINE:
-                list.addToList(new Deadline(taskDescription, taskDate));
-                break;
-            case COMMAND_EVENT:
-                list.addToList(new Event(taskDescription, taskDate));
-                break;
-            default:
-                break;
+            try {
+                switch (command) {
+                case COMMAND_LIST:
+                    list.printList();
+                    break;
+                case COMMAND_DONE:
+                    list.markAsDone(getDoneIndex(command, line));
+                    break;
+                case COMMAND_TODO:
+                    list.addToList(new ToDo(getTaskDescription(command, line)));
+                    break;
+                case COMMAND_DEADLINE:
+                    list.addToList(new Deadline(getTaskDescription(command, line), getTaskDate(command, line)));
+                    break;
+                case COMMAND_EVENT:
+                    list.addToList(new Event(getTaskDescription(command, line), getTaskDate(command, line)));
+                    break;
+                default:
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means!");
+                }
+            } catch (DukeException e) {
+                System.out.println(e.toString());
             }
 
             printHorizontalLine();
@@ -105,8 +126,6 @@ public class Duke {
             // Read next line
             line = in.nextLine();
             command = getCommand(line);
-            taskDescription = getTaskDescription(command, line);
-            taskDate = getTaskDate(command, line);
         }
 
         // Exit Message
