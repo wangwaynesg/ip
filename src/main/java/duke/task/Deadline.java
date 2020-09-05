@@ -1,9 +1,4 @@
-/**
- * Deadline is a subclass of Task
- * Deadlines are tasks that need to be done before a specific date/time
- *
- * @wangwaynesg (Wang Wayne)
- */
+package duke.task;
 
 public class Deadline extends Task {
     protected String by;

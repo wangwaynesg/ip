@@ -1,8 +1,10 @@
-/**
- * Individual Project Main class
- *
- * @wangwaynesg (Wang Wayne)
- */
+package duke;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskList;
+import duke.task.ToDo;
 
 import java.util.Scanner;
 
@@ -20,7 +22,7 @@ public class Duke {
 
     public static void printGreetingMessage() {
         printHorizontalLine();
-        System.out.println("Hello! I'm Duke");
+        System.out.println("Hello! I'm duke.Duke");
         System.out.println("What can I do for you?");
         printHorizontalLine();
     }
@@ -36,8 +38,8 @@ public class Duke {
     }
 
     public static String getTaskDescription(String command, String line) throws DukeException {
-        if (line.split(command).length < 2 || line.split(command)[1] == " ") {
-            throw new DukeException("☹ OOPS!!! Missing task description!");
+        if (line.split(command).length < 2 || line.split(command)[1].equals(" ")) {
+            throw new DukeException("☹ OOPS!!! Missing duke.task description!");
         } else {
             switch (command) {
             case COMMAND_TODO:
@@ -57,7 +59,7 @@ public class Duke {
         }
     }
 
-    public static String getTaskDate(String command, String line) throws DukeException {
+    public static String getTaskDate(String command, String line) {
         switch (command) {
         case COMMAND_DEADLINE:
             return line.split("/by ")[1];
@@ -69,8 +71,8 @@ public class Duke {
     }
 
     public static int getDoneIndex(String command, String line) throws DukeException {
-        if (line.split(command).length < 2 || line.split(command)[1] == " ") {
-            throw new DukeException("☹ OOPS!!! Missing index of task!");
+        if (line.split(command).length < 2 || line.split(command)[1].equals(" ")) {
+            throw new DukeException("☹ OOPS!!! Missing index of duke.task!");
         }
         try {
             return Integer.parseInt(line.split(" ")[1]) - 1;
@@ -82,18 +84,13 @@ public class Duke {
     public static void main(String[] args) {
         printGreetingMessage();
 
-        // Initialize new instance of a ToDoList object
+        // Initialize new instance of a TaskList object
         TaskList list = new TaskList();
-
-        String line;
-        String command;
 
         // Initialize Scanner and read in user input
         Scanner in = new Scanner(System.in);
-        line = in.nextLine();
-
-        // Get command, taskDescription and taskDate
-        command = getCommand(line);
+        String line = in.nextLine();
+        String command = getCommand(line);
 
         while (!command.equals(COMMAND_BYE)) {
             printHorizontalLine();
@@ -103,6 +100,9 @@ public class Duke {
                     list.printList();
                     break;
                 case COMMAND_DONE:
+                    if (getDoneIndex(command, line) + 1 > list.getListLength()) {
+                        throw new DukeException("☹ OOPS!!! Index specified is out of list size!");
+                    }
                     list.markAsDone(getDoneIndex(command, line));
                     break;
                 case COMMAND_TODO:
