@@ -45,11 +45,11 @@ public class Duke {
             case COMMAND_TODO:
                 return line.substring(line.indexOf(' ') + 1);
             case COMMAND_DEADLINE:
-            case COMMAND_EVENT:
-                if (!line.contains("/by ") && command.equals(COMMAND_DEADLINE)) {
+                if (!line.contains("/by ")) {
                     throw new DukeException("☹ OOPS!!! Missing or incorrect /by statement");
                 }
-                if (!line.contains("/at ") && command.equals(COMMAND_EVENT)) {
+            case COMMAND_EVENT:
+                if (!line.contains("/at ")) {
                     throw new DukeException("☹ OOPS!!! Missing or incorrect /at statement");
                 }
                 return line.substring(line.indexOf(' ') + 1, line.indexOf('/') - 1);
