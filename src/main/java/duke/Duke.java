@@ -48,11 +48,12 @@ public class Duke {
                 if (!line.contains("/by ")) {
                     throw new DukeException("☹ OOPS!!! Missing or incorrect /by statement");
                 }
+                return line.substring(line.indexOf(' ') + 1, line.indexOf("/by ") - 1);
             case COMMAND_EVENT:
                 if (!line.contains("/at ")) {
                     throw new DukeException("☹ OOPS!!! Missing or incorrect /at statement");
                 }
-                return line.substring(line.indexOf(' ') + 1, line.indexOf('/') - 1);
+                return line.substring(line.indexOf(' ') + 1, line.indexOf("/at ") - 1);
             default:
                 return null;
             }

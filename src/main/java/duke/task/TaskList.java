@@ -1,40 +1,37 @@
 package duke.task;
 
-public class TaskList {
-    private final Task[] list;
-    private static int listLength = 0;
+import java.util.ArrayList;
 
-    public TaskList() {
-        list = new Task[100];
-    }
+public class TaskList {
+    private final ArrayList<Task> list = new ArrayList<>();
 
     public void addToList(Task task) {
-        list[TaskList.listLength++] = task;
+        list.add(task);
         // System.out.println("added: " + duke.task.getDescription());
         System.out.println("Got it. I've added this duke.task:");
         System.out.println(task.toString());
-        System.out.println("Now you have " + listLength + " tasks in the list.");
+        System.out.println("Now you have " + this.list.size() + " tasks in the list.");
     }
 
     public void printList() {
-        if (TaskList.listLength == 0) {
+        if (this.list.size() == 0) {
             System.out.println("list is currently empty!");
         } else {
             int counter = 1;
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < TaskList.listLength ; i++) {
-                System.out.println(counter++ + "." + list[i].toString());
+            for (Task task : this.list) {
+                System.out.println(counter++ + "." + task);
             }
         }
     }
 
     public int getListLength() {
-        return listLength;
+        return this.list.size();
     }
 
     public void markAsDone(int index) {
         System.out.println("Nice! I've marked this duke.task as done:");
-        list[index].markAsDone();
-        System.out.println(list[index].getStatusIcon() + " " + list[index].getDescription());
+        this.list.get(index).markAsDone();
+        System.out.println(this.list.get(index).getStatusIcon() + " " + this.list.get(index).getDescription());
     }
 }
