@@ -13,6 +13,7 @@ public class Duke {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DONE = "done";
+    public static final String COMMAND_DELETE = "delete";
     public static ArrayList<Task> taskList = null;
 
     public static void printHorizontalLine() {
@@ -106,6 +107,13 @@ public class Duke {
         System.out.println(taskList.get(index).getStatusIcon() + " " + taskList.get(index).getDescription());
     }
 
+    public static void deleteTask(int index) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(taskList.get(index).getStatusIcon() + " " + taskList.get(index).getDescription());
+        taskList.remove(index);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+    }
+
     public static void main(String[] args) {
         printGreetingMessage();
 
@@ -129,6 +137,12 @@ public class Duke {
                         throw new DukeException("☹ OOPS!!! Index specified is out of list size!");
                     }
                     markAsDone(getCommandIndex(command, line));
+                    break;
+                case COMMAND_DELETE:
+                    if (getCommandIndex(command, line) + 1 > taskList.size()) {
+                        throw new DukeException("☹ OOPS!!! Index specified is out of list size!");
+                    }
+                    deleteTask(getCommandIndex(command, line));
                     break;
                 case COMMAND_TODO:
                     addToTaskList(new ToDo(getTaskDescription(command, line)));
