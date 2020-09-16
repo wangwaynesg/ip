@@ -16,6 +16,10 @@ public class Task {
         this.isDone = bool;
     }
 
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? TICK : CROSS);
     }
