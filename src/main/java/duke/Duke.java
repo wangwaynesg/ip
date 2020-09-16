@@ -70,7 +70,7 @@ public class Duke {
         }
     }
 
-    public static int getDoneIndex(String command, String line) throws DukeException {
+    public static int getCommandIndex(String command, String line) throws DukeException {
         if (line.split(command).length < 2 || line.split(command)[1].equals(" ")) {
             throw new DukeException("☹ OOPS!!! Missing index of duke.task!");
         }
@@ -125,10 +125,10 @@ public class Duke {
                     printTaskList();
                     break;
                 case COMMAND_DONE:
-                    if (getDoneIndex(command, line) + 1 > taskList.size()) {
+                    if (getCommandIndex(command, line) + 1 > taskList.size()) {
                         throw new DukeException("☹ OOPS!!! Index specified is out of list size!");
                     }
-                    markAsDone(getDoneIndex(command, line));
+                    markAsDone(getCommandIndex(command, line));
                     break;
                 case COMMAND_TODO:
                     addToTaskList(new ToDo(getTaskDescription(command, line)));
