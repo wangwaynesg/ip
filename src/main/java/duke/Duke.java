@@ -1,11 +1,9 @@
 package duke;
 
 import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.TaskList;
-import duke.task.ToDo;
+import duke.task.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -15,6 +13,7 @@ public class Duke {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DONE = "done";
+    public static ArrayList<Task> taskList = null;
 
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
@@ -82,11 +81,36 @@ public class Duke {
         }
     }
 
+    public static void addToTaskList(Task task) {
+        taskList.add(task);
+        System.out.println("Got it. I've added this duke.task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    public static void printTaskList() {
+        if (taskList.size() == 0) {
+            System.out.println("list is currently empty!");
+        } else {
+            int counter = 1;
+            System.out.println("Here are the tasks in your list:");
+            for (Task task : taskList) {
+                System.out.println(counter++ + "." + task);
+            }
+        }
+    }
+
+    public static void markAsDone(int index) {
+        System.out.println("Nice! I've marked this duke.task as done:");
+        taskList.get(index).setIsDone(true);
+        System.out.println(taskList.get(index).getStatusIcon() + " " + taskList.get(index).getDescription());
+    }
+
     public static void main(String[] args) {
         printGreetingMessage();
 
         // Initialize new instance of a TaskList object
-        TaskList list = new TaskList();
+        taskList = new ArrayList<>();
 
         // Initialize Scanner and read in user input
         Scanner in = new Scanner(System.in);
@@ -98,22 +122,22 @@ public class Duke {
             try {
                 switch (command) {
                 case COMMAND_LIST:
-                    list.printList();
+                    printTaskList();
                     break;
                 case COMMAND_DONE:
-                    if (getDoneIndex(command, line) + 1 > list.getListLength()) {
+                    if (getDoneIndex(command, line) + 1 > taskList.size()) {
                         throw new DukeException("☹ OOPS!!! Index specified is out of list size!");
                     }
-                    list.markAsDone(getDoneIndex(command, line));
+                    markAsDone(getDoneIndex(command, line));
                     break;
                 case COMMAND_TODO:
-                    list.addToList(new ToDo(getTaskDescription(command, line)));
+                    addToTaskList(new ToDo(getTaskDescription(command, line)));
                     break;
                 case COMMAND_DEADLINE:
-                    list.addToList(new Deadline(getTaskDescription(command, line), getTaskDate(command, line)));
+                    addToTaskList(new Deadline(getTaskDescription(command, line), getTaskDate(command, line)));
                     break;
                 case COMMAND_EVENT:
-                    list.addToList(new Event(getTaskDescription(command, line), getTaskDate(command, line)));
+                    addToTaskList(new Event(getTaskDescription(command, line), getTaskDate(command, line)));
                     break;
                 default:
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means!");

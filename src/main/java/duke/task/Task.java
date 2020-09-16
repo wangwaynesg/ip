@@ -12,8 +12,8 @@ public class Task {
         isDone = false;
     }
 
-    public void markAsDone() {
-        isDone = true;
+    public void setIsDone(Boolean bool) {
+        this.isDone = bool;
     }
 
     public String getStatusIcon() {
