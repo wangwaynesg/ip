@@ -1,8 +1,13 @@
 package duke;
 
 import duke.exception.DukeException;
-import duke.task.*;
+import duke.fileaccess.FileAccess;
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Event;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -110,7 +115,7 @@ public class Duke {
         printGreetingMessage();
 
         // Initialize new instance of a TaskList object
-        taskList = new ArrayList<>();
+        taskList = FileAccess.readFile();
 
         // Initialize Scanner and read in user input
         Scanner in = new Scanner(System.in);
@@ -151,6 +156,11 @@ public class Duke {
             // Read next line
             line = in.nextLine();
             command = getCommand(line);
+        }
+        try {
+            FileAccess.writeFile(taskList);
+        } catch (IOException e) {
+            System.out.println("Unable to save file!");
         }
 
         // Exit Message
