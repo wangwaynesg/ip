@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class FileAccess {
     public static ArrayList<Task> readFile(){
-        File f = new File("data/duke.txt");
+        File f = new File("duke.txt");
         Scanner s = null;
 
         try {
@@ -61,14 +61,14 @@ public class FileAccess {
     }
 
     public static void writeFile(ArrayList<Task> taskList) throws IOException {
-        FileWriter fw = new FileWriter("data/duke.txt");
+        FileWriter fw = new FileWriter("duke.txt");
         for (Task task : taskList) {
             if (task instanceof ToDo) {
                 fw.write("T" + " | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription());
             } else if (task instanceof Deadline) {
                 fw.write("D" + " | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription() + " | " + ((Deadline) task).getBy());
             } else if (task instanceof Event) {
-                fw.write("D" + " | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription() + " | " + ((Event) task).getAt());
+                fw.write("E" + " | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription() + " | " + ((Event) task).getAt());
             }
             fw.write(System.lineSeparator());
         }
