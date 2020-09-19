@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -60,6 +61,23 @@ public class TaskList {
                 System.out.println("There were no matching tasks found!");
             }
         }
+    }
 
+    public void printOccur(LocalDate date) {
+        int counter = 1;
+        for (Task task : this.tasks) {
+            if (task instanceof Deadline) {
+                if (((Deadline) task).getBy().equals(date)) {
+                    System.out.println(counter++ + "." + task);
+                }
+            } else if (task instanceof Event) {
+                if (((Event) task).getAt().equals(date)) {
+                    System.out.println(counter++ + "." + task);
+                }
+            }
+        }
+        if (counter == 1) {
+            System.out.println("No tasks occur on that date");
+        }
     }
 }

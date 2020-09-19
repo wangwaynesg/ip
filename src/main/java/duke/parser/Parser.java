@@ -7,6 +7,8 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
 
+import java.time.LocalDate;
+
 public class Parser {
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_LIST = "list";
@@ -16,12 +18,14 @@ public class Parser {
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_FIND = "find";
+    public static final String COMMAND_HELP = "help";
+    public static final String COMMAND_OCCUR = "occur";
 
     private static String getCommand(String fullCommand) {
         return fullCommand.split(" ")[0];
     }
 
-    private static String getTaskDescription(String fullCommand) throws DukeException{
+    private static String getTaskDescription(String fullCommand) throws DukeException {
         String command = getCommand(fullCommand);
 
         if (fullCommand.split(command).length < 2
@@ -47,12 +51,30 @@ public class Parser {
         }
     }
 
-    private static String getTaskDate(String fullCommand) {
+    private static LocalDate getTaskDate(String fullCommand) throws DukeException {
+        String taskDateString;
         switch (getCommand(fullCommand)) {
         case COMMAND_DEADLINE:
-            return fullCommand.split("/by ")[1];
+            taskDateString = fullCommand.split("/by ")[1];
+            try {
+                return LocalDate.parse(taskDateString);
+            } catch (Exception e) {
+                throw new DukeException("Date specified is of wrong format! Use YYYY-MM-DD format!");
+            }
         case COMMAND_EVENT:
-            return fullCommand.split("/at ")[1];
+            taskDateString = fullCommand.split("/at ")[1];
+            try {
+                return LocalDate.parse(taskDateString);
+            } catch (Exception e) {
+                throw new DukeException("Date specified is of wrong format! Use YYYY-MM-DD format!");
+            }
+        case COMMAND_OCCUR:
+            taskDateString = fullCommand.split(" ")[1];
+            try {
+                return LocalDate.parse(taskDateString);
+            } catch (Exception e) {
+                throw new DukeException("Date specified is of wrong format! Use YYYY-MM-DD format!");
+            }
         default:
             return null;
         }
@@ -84,6 +106,8 @@ public class Parser {
 
     public static Command parse(String fullCommand) throws DukeException {
         switch (getCommand(fullCommand)) {
+        case COMMAND_HELP:
+            return new HelpCommand();
         case COMMAND_BYE:
             return new ExitCommand();
         case COMMAND_LIST:
@@ -100,6 +124,8 @@ public class Parser {
             return new DeleteCommand(getCommandIndex(fullCommand));
         case COMMAND_FIND:
             return new FindCommand(getTarget(fullCommand));
+        case COMMAND_OCCUR:
+            return new OccurCommand(getTaskDate(fullCommand));
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means!");
         }
