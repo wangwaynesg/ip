@@ -3,6 +3,7 @@ package duke.ui;
 import duke.task.Task;
 import duke.task.TaskList;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Ui {
@@ -14,8 +15,9 @@ public class Ui {
 
     public void showWelcome() {
         showLine();
-        System.out.println("Hello! I'm duke.Duke");
+        System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
+        System.out.println("Use command 'help' for a list of commands!");
         showLine();
     }
 
@@ -51,5 +53,21 @@ public class Ui {
 
     public void showSavingMessage() {
         System.out.println("Saving current tasks...");
+    }
+
+    public void showHelp() {
+        System.out.println("Show help:\n\thelp");
+        System.out.println("Print all tasks in the TaskList:\n\tlist");
+        System.out.println("Create new Todo Task:\n\ttodo <taskDescription>");
+        System.out.println("Create new deadline by specified date:\n\tdeadline <taskDescription> /by <YYYY-MM-DD>");
+        System.out.println("Create new event at specified date:\n\tevent <taskDescription> /at <YYYY-MM-DD>");
+        System.out.println("Mark task at specified index as done:\n\tdone <index>");
+        System.out.println("Delete the task at specified index:\n\tdelete <index>");
+        System.out.println("Find tasks that occur on specified date:\n\toccur <YYYY-MM-DD>");
+        System.out.println("Exit the program and saves the current TaskList:\n\tbye");
+    }
+
+    public void showOccurMessage(LocalDate date) {
+        System.out.println("Finding tasks that occur on " + date + ":");
     }
 }

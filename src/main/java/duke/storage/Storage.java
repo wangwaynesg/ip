@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,7 +34,7 @@ public class Storage {
         String taskType;
         String isDoneStatus;
         String taskDescription;
-        String taskDate;
+        LocalDate taskDate;
         String line;
 
         while (s.hasNext()) {
@@ -47,11 +48,12 @@ public class Storage {
                 tasks.add(new ToDo(taskDescription));
                 break;
             case "D":
-                taskDate = line.split(" \\| ")[3];
+                // Might need to add try/catch for LocalDate.parse here
+                taskDate = LocalDate.parse(line.split(" \\| ")[3]);
                 tasks.add(new Deadline(taskDescription, taskDate));
                 break;
             case "E":
-                taskDate = line.split(" \\| ")[3];
+                taskDate = LocalDate.parse(line.split(" \\| ")[3]);
                 tasks.add(new Event(taskDescription, taskDate));
                 break;
             default:
