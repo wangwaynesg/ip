@@ -44,4 +44,22 @@ public class TaskList {
             }
         }
     }
+
+    public void findTarget(String target) {
+        if (this.tasks.size() == 0) {
+            System.out.println("Your task list is currently empty!");
+        } else {
+            int counter = 1;
+            System.out.println("Here are the matching tasks in your list:");
+            for (Task task : this.tasks) {
+                if (task.getDescription().contains(target)) {
+                    System.out.println(counter++ + "." + task);
+                }
+            }
+            if (counter == 1) {
+                System.out.println("There were no matching tasks found!");
+            }
+        }
+
+    }
 }
