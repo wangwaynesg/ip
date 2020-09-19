@@ -17,6 +17,7 @@ public class Parser {
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
     public static final String COMMAND_HELP = "help";
     public static final String COMMAND_OCCUR = "occur";
 
@@ -92,6 +93,17 @@ public class Parser {
         }
     }
 
+    public static String getTarget(String fullCommand) throws DukeException {
+        String command = getCommand(fullCommand);
+
+        if (fullCommand.split(command).length < 2
+                || fullCommand.split(command).equals(" ")) {
+            throw new DukeException("☹ OOPS!!! Missing target!");
+        } else {
+            return fullCommand.substring(fullCommand.indexOf(' ') + 1);
+        }
+    }
+
     public static Command parse(String fullCommand) throws DukeException {
         switch (getCommand(fullCommand)) {
         case COMMAND_HELP:
@@ -110,6 +122,8 @@ public class Parser {
             return new DoneCommand(getCommandIndex(fullCommand));
         case COMMAND_DELETE:
             return new DeleteCommand(getCommandIndex(fullCommand));
+        case COMMAND_FIND:
+            return new FindCommand(getTarget(fullCommand));
         case COMMAND_OCCUR:
             return new OccurCommand(getTaskDate(fullCommand));
         default:
