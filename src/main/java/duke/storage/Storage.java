@@ -36,7 +36,7 @@ public class Storage {
         try {
             s = new Scanner(f);
         } catch (FileNotFoundException e) {
-            throw new DukeException("File Not Found!!");
+            throw new DukeException("No save file detected!\nCreating fresh new task list...");
         }
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -82,7 +82,7 @@ public class Storage {
      * @throws IOException when there is an error due to writing the txt file.
      */
     public void write(TaskList tasks) throws IOException {
-        FileWriter fw = new FileWriter("data/duke.txt");
+        FileWriter fw = new FileWriter(filePath);
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.getTask(i) instanceof ToDo) {
                 fw.write("T"

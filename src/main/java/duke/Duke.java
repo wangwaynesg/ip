@@ -8,6 +8,8 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Main class of the program.
  * The Duke program is an application which can store, display and check Tasks.
@@ -46,6 +48,9 @@ public class Duke {
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
+            } catch (IOException e) {
+                ui.showError(e.getMessage());
+                break;
             } finally{
                 ui.showLine();
             }
@@ -55,7 +60,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke("data/duke.txt");
+        Duke duke = new Duke("duke.txt");
         duke.run();
     }
 }

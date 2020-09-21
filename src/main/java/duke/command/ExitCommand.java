@@ -9,12 +9,8 @@ import java.io.IOException;
 
 public class ExitCommand extends Command{
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         ui.showSavingMessage();
-        try {
-            storage.write(tasks);
-        } catch (IOException e) {
-            throw new DukeException("Error while saving tasks");
-        }
+        storage.write(tasks);
     }
 }

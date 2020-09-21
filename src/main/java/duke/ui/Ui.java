@@ -52,7 +52,7 @@ public class Ui {
     }
 
     public void showSavingMessage() {
-        System.out.println("Saving current tasks...");
+        System.out.println("Attempting to save task list...");
     }
 
     public void showHelp() {
