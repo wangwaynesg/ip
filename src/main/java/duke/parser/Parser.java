@@ -21,10 +21,21 @@ public class Parser {
     public static final String COMMAND_HELP = "help";
     public static final String COMMAND_OCCUR = "occur";
 
+    /**
+     * Returns the <code>COMMAND</code> of a user input.
+     * @param fullCommand user input.
+     * @return First part of the user input.
+     */
     private static String getCommand(String fullCommand) {
         return fullCommand.split(" ")[0];
     }
 
+    /**
+     * Returns the <code>taskDescription</code> of a <code>Task</code> from the user input.
+     * @param fullCommand user input.
+     * @return <code>taskDescription</code> part of the user input.
+     * @throws DukeException when the user input is of a wrong format.
+     */
     private static String getTaskDescription(String fullCommand) throws DukeException {
         String command = getCommand(fullCommand);
 
@@ -51,6 +62,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the <code>taskDate</code> of a <code>Task</code> from the user input.
+     * @param fullCommand user input.
+     * @return <code>taskDate</code> part of the user input.
+     * @throws DukeException when the user input is of a wrong format.
+     */
     private static LocalDate getTaskDate(String fullCommand) throws DukeException {
         String taskDateString;
         switch (getCommand(fullCommand)) {
@@ -80,6 +97,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the <code>commandIndex</code> of a user input, e.g. done 2 or delete 3.
+     * Returns 2 or 3 respectively.
+     * @param fullCommand user input.
+     * @return <code>commandIndex</code> part of the user input.
+     * @throws DukeException when the user input is of a wrong format.
+     */
     private static int getCommandIndex(String fullCommand) throws DukeException {
         String command = getCommand(fullCommand);
 
@@ -93,6 +117,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the <code>targetString</code> when the find command is input.
+     * @param fullCommand user input.
+     * @return <code>String</code> of the targetString to be found.
+     * @throws DukeException when the user input is of a wrong format.
+     */
     public static String getTarget(String fullCommand) throws DukeException {
         String command = getCommand(fullCommand);
 
@@ -104,6 +134,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Makes sense of the user input and returns the command object accordingly to the command given.
+     * @param fullCommand user input.
+     * @return <code>Command</code> of sub-type depending on the command given.
+     * @throws DukeException when the program does not recognize the command given.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         switch (getCommand(fullCommand)) {
         case COMMAND_HELP:

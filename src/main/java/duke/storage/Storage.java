@@ -12,6 +12,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class deals with handling storage on the <code>TaskList</code>.\n
+ * There is a load method to import in the saved data from the specified file path.
+ * There is a write method to export the data to the specified file path.
+ */
 public class Storage {
     private String filePath;
 
@@ -19,6 +24,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Imports the <code>TaskList</code> data from specified file path.
+     * @return <code>ArrayList</code> of <code>Task</code> containing imported <code>TaskList</code>.
+     * @throws DukeException when file not found, or file format is wrong.
+     */
     public ArrayList<Task> load() throws DukeException {
         File f = new File(filePath);
         Scanner s = null;
@@ -66,6 +76,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Exports the <code>TaskList</code> into a txt file at specified file path.
+     * @param tasks the current <code>TaskList</code>.
+     * @throws IOException when there is an error due to writing the txt file.
+     */
     public void write(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter("data/duke.txt");
         for (int i = 0; i < tasks.size(); i++) {
