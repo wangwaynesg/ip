@@ -8,6 +8,14 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Main class of the program.
+ * The Duke program is an application which can store, display and check Tasks.
+ * There are 3 types of tasks, ToDo, Deadline, Event.
+ *
+ * @author Wang Wayne
+ * @since 2020-09-21
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;

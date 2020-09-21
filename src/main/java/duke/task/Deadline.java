@@ -3,6 +3,11 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * <h1>Deadline</h1>
+ * Represents a <code>Deadline</code> Task which is a subclass of <code>Task</code>
+ * with its corresponding deadline date stored as <code>by</code>.
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 
