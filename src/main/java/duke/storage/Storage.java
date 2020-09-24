@@ -58,7 +58,6 @@ public class Storage {
                 tasks.add(new ToDo(taskDescription));
                 break;
             case "D":
-                // Might need to add try/catch for LocalDate.parse here
                 taskDate = LocalDate.parse(line.split(" \\| ")[3]);
                 tasks.add(new Deadline(taskDescription, taskDate));
                 break;

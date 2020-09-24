@@ -6,6 +6,9 @@ import duke.task.TaskList;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * User interface class used for reading user inputs and output messages.
+ */
 public class Ui {
     private static Scanner s = new Scanner(System.in);
 

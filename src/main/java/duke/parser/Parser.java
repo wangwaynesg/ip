@@ -1,6 +1,5 @@
 package duke.parser;
 
-import duke.Duke;
 import duke.command.*;
 import duke.exception.DukeException;
 import duke.task.Deadline;
@@ -40,7 +39,7 @@ public class Parser {
         String command = getCommand(fullCommand);
 
         if (fullCommand.split(command).length < 2
-            || fullCommand.split(command).equals(" ")) {
+            || fullCommand.split(command)[1].equals(" ")) {
             throw new DukeException("☹ OOPS!!! Missing duke.task description!");
         } else {
             switch (command) {
@@ -127,7 +126,7 @@ public class Parser {
         String command = getCommand(fullCommand);
 
         if (fullCommand.split(command).length < 2
-                || fullCommand.split(command).equals(" ")) {
+                || fullCommand.split(command)[1].equals(" ")) {
             throw new DukeException("☹ OOPS!!! Missing target!");
         } else {
             return fullCommand.substring(fullCommand.indexOf(' ') + 1);
