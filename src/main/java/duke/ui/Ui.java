@@ -66,7 +66,8 @@ public class Ui {
         System.out.println("Create new event at specified date:\n\tevent <taskDescription> /at <YYYY-MM-DD>");
         System.out.println("Mark task at specified index as done:\n\tdone <index>");
         System.out.println("Delete the task at specified index:\n\tdelete <index>");
-        System.out.println("Find tasks that occur on specified date:\n\toccur <YYYY-MM-DD>");
+        System.out.println("Show tasks that occur on specified date:\n\toccur <YYYY-MM-DD>");
+        System.out.println("Search for tasks that contain specific words:\n\tfind <String>");
         System.out.println("Exit the program and saves the current TaskList:\n\tbye");
     }
 
