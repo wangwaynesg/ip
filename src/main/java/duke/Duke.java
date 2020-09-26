@@ -24,6 +24,10 @@ public class Duke {
     private Ui ui;
     private static final String filePath = "duke.txt";
 
+    /**
+     * Constructor for new Duke Object
+     * @param filePath
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
