@@ -46,12 +46,12 @@ public class Parser {
             case COMMAND_TODO:
                 return fullCommand.substring(fullCommand.indexOf(' ') + 1);
             case COMMAND_DEADLINE:
-                if (!fullCommand.contains("/by ")) {
+                if (!fullCommand.contains("/by ") || fullCommand.contains("deadline /by")) {
                     throw new DukeException("☹ OOPS!!! Missing or incorrect /by statement");
                 }
                 return fullCommand.substring(fullCommand.indexOf(' ') + 1, fullCommand.indexOf("/by ") - 1);
             case COMMAND_EVENT:
-                if (!fullCommand.contains("/at ")) {
+                if (!fullCommand.contains("/at ") || fullCommand.contains("deadline /at")) {
                     throw new DukeException("☹ OOPS!!! Missing or incorrect /at statement");
                 }
                 return fullCommand.substring(fullCommand.indexOf(' ') + 1, fullCommand.indexOf("/at ") - 1);

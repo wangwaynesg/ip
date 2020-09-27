@@ -3,4 +3,5 @@ D | 0 | return book | 2020-06-01
 T | 1 | join sports club
 D | 1 | do ip project | 2020-09-17
 E | 0 | project meeting | 2020-10-01
-D | 0 | finish ip week7 | 2020-09-19
+D | 1 | finish ip week7 | 2020-09-19
+D | 0 | submit ip assignment | 2020-10-02
